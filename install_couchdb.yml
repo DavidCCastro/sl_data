@@ -44,5 +44,5 @@
       
     - name: notificación slack
       slack:
-        token: https://hooks.slack.com/services/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
+        token: hooks.slack.com/services/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
         msg: chuta  
