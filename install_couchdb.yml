@@ -1,0 +1,49 @@
+- hosts: sldatabase
+  user: smartlis
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: configure CouchDB environment (create user couchdb)
+      user:
+        name: couchdb
+        createhome: yes
+        home: /var/lib/couchdb
+
+    - name: configure CouchDB environment (create directories and set permissions)
+      become: yes
+      become_method: sudo
+      file:
+        path: "{{ item }}"
+        owner: couchdb
+        group: couchdb
+        mode: "g+rw"
+        state: directory
+      with_items:
+        - /usr/local/lib/couchdb
+        - /usr/local/etc/couchdb
+        - /usr/local/var/lib/couchdb
+        - /usr/local/var/log/couchdb
+        - /usr/local/var/run/couchdb
+        - /var/lib/couchdb
+
+    - name: download and untar apache-couchdb-1.6.1.tar.gz into /home/
+      unarchive:
+        src: ftp://192.1.1.181/couchdb/apache-couchdb-1.6.1.tar.gz
+        dest: /home/
+        remote_src: yes
+
+    - name: Configure couchdb installation
+      become: yes
+      become_method: sudo
+      shell: cd /home/apache-couchdb-1.6.1/ && ./configure --prefix=/usr/local --with-js-lib=/usr/lib --with-js-include=/usr/include/js --enable-init
+
+    - name: install couchdb
+      become: yes
+      become_method: sudo
+      shell: cd /home/apache-couchdb-1.6.1/ && make && make install
+      
+    - name: notificación slack
+      slack:
+        token: davidcamacho/roche.com/xoxp-328073406726-357109619669-358172263220-8dc07ec82277388f3bda174501f9f584
+        msg: 'chuta'
+        

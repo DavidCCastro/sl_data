@@ -1,0 +1,69 @@
+- hosts: sldatabase
+  user: smartlis
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Set system postgres user password
+      user:
+        name: postgres
+        password: $6$bMMYrlpihCVi3UOt$n7EE5exQFKrtV7AvmcciCQTw78KO2YgA2BgFpQjJbFMXPpN0ar3TNRWzwbum3NgzgQA8VWoTg3NU2gozs7RzY.
+        
+    - name: Create Smartlis PostgreSQL user
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        name: smartlis
+        password: "{{ smartlis_pass }}"
+        role_attr_flags: CREATEDB
+        expires: infinity
+       
+    - name: stop postgresql service
+      service: 
+        name: postgresql
+        state: stopped
+
+    - name: Edit PostgreSQL client authentication configuration file /etc/postgresql/9.6/main/pg_hba.conf
+      blockinfile:
+        path: /etc/postgresql/9.6/main/pg_hba.conf
+        insertafter: 'host    all             all             ::1/128                 md5'
+        content: |
+          # IPv4 local subnet connections
+          host    all               smartlis         192.1.1.0/24         password
+          
+    - name: Edit listen_addresses parameter to * in file /etc/postgresql/9.6/main/postgresql.conf
+      lineinfile:
+        path: /etc/postgresql/9.6/main/postgresql.conf
+        regexp: '^#listen_addresses ='
+        line: "{{ item }}"
+      with_items:
+        - "listen_addresses = '*'"
+
+    - name: Edit max_connections parameter to 2000 in file /etc/postgresql/9.6/main/postgresql.conf
+      lineinfile:
+        path: /etc/postgresql/9.6/main/postgresql.conf
+        regexp: '^max_connections = 100'
+        line: 'max_connections = 2000'
+
+    - name: Create /mnt/data directory
+      file:
+        path: /mnt/data
+        state: directory
+        owner: smartlis
+
+    - name: Copy files from /var/lib/postgresql/9.5/main to /mnt/data/postgresql/9.6/main
+      become: yes
+      become_method: sudo
+      shell: rsync -a $(grep '^data_directory\b' /etc/postgresql/9.6/main/postgresql.conf | cut -f 1 | cut -d ' ' -f 3 | cut -d "'" -f 2 | sed 's|/9.6/main$||') /mnt/data
+
+    - name: Edit data_directory parameter to /mnt/data/postgresql/9.6/main in file /etc/postgresql/9.6/main/postgresql.conf
+      lineinfile:
+        path: /etc/postgresql/9.6/main/postgresql.conf
+        regexp: '^data_directory'
+        line: "{{ item }}"
+      with_items:
+        - "data_directory = '/mnt/data/postgresql/9.6/main'"
+
+    - name: start postgresql service
+      service: 
+        name: postgresql
+        state: started

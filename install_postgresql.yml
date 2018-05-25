@@ -1,0 +1,29 @@
+- hosts: sldatabase
+  user: smartlis
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install postgresql
+      apt: 
+        name: postgresql-9.6
+        state: present
+
+    - name: check postgresql is started
+      service:
+        name: postgresql
+        state: started
+
+    - name: install libpq-dev
+      apt:
+        name: libpq-dev
+        state: present
+      
+    - name: install rsync
+      apt:
+        name: rsync
+        state: present
+        
+    - name: install psycopg2
+      apt:
+        name: python-psycopg2
+        state: present

@@ -1,0 +1,53 @@
+- hosts: sldatabase
+  user: smartlis
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Set up permissions to couchdb user for the CouchDB configuration file
+      file:
+        path: /usr/local/etc/couchdb/local.ini
+        owner: couchdb
+
+    - name: Create symbolic link 1
+      file:
+        src: '/usr/local/etc/init.d/couchdb'
+        dest: '/etc/init.d/couchdb'
+        state: link
+
+    - name: Create symbolic link 2
+      file:
+        src: '/usr/local/etc/couchdb'
+        dest: '/etc/couchdb'
+        state: link
+
+    - name: Enable remote connections
+      become: yes
+      become_method: sudo
+      lineinfile:
+        path: /usr/local/etc/couchdb/local.ini
+        regexp: '^;bind_address = 127.0.0.1'
+        line: 'bind_address = 0.0.0.0'
+
+    - name: Update couchdb service
+      become: yes
+      become_method: sudo
+      shell: update-rc.d couchdb defaults
+
+    - name: Create /data/couchdb folder
+      file:
+        path: /mnt/data/couchdb
+        state: directory
+        owner: couchdb
+
+    - name: Edit database_dir parameter into /usr/local/etc/couchdb/local.ini file
+      become: yes
+      become_method: sudo
+      lineinfile:
+        path: /usr/local/etc/couchdb/local.ini
+        insertafter: ';max_document_size ='
+        line: 'database_dir = /mnt/data/couchdb'
+
+    - name: Restart couchdb service
+      service:
+        name: couchdb
+        state: restarted
