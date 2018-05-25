@@ -43,9 +43,7 @@
       shell: cd /home/apache-couchdb-1.6.1/ && make && make install
       
     - name: notificación slack
-      connection: local
       slack:
         token: https://hooks.slack.com/services/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
-        msg: 'chuta'
-      delegate_to: localhost 
+        msg: 'chuta' 
        
