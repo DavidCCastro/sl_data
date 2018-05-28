@@ -29,10 +29,14 @@
         remote_src: yes
 
     - name: Configure couchdb installation
-      shell: cd /home/apache-couchdb-1.6.1/ && sudo ./configure --prefix=/usr/local --with-js-lib=/usr/lib --with-js-include=/usr/include/js --enable-init
+      become: yes
+      become_method: sudo
+      shell: cd /home/apache-couchdb-1.6.1/ && ./configure --prefix=/usr/local --with-js-lib=/usr/lib --with-js-include=/usr/include/js --enable-init
 
     - name: install couchdb
-      shell: cd /home/apache-couchdb-1.6.1/ && sudo make && sudo make install
+      become: yes
+      become_method: sudo
+      shell: cd /home/apache-couchdb-1.6.1/ && make && make install
       
     - name: notificación slack
       delegate_to: localhost
