@@ -1,7 +1,5 @@
 - hosts: sldatabase
   user: smartlis
-  become: yes
-  become_method: sudo
   tasks:
     - name: configure CouchDB environment (create user couchdb)
       user:
