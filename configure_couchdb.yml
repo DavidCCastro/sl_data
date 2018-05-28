@@ -51,3 +51,13 @@
       service:
         name: couchdb
         state: restarted
+        
+    - name: check couchdb installation
+      uri:
+        url: http://localhost/_utils/config.html
+        return_content: yes
+      register: webpage
+
+    - name: Fail if version is not in the page content
+      fail:
+      when: "'1.6.1' not in webpage.content"
