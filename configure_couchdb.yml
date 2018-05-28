@@ -54,7 +54,7 @@
         
     - name: check couchdb installation
       uri:
-        url: http://localhost/_utils/config.html
+        url: http://localhost:5984/_utils/config.html
         return_content: yes
       register: webpage
 
