@@ -2,6 +2,8 @@
   user: smartlis
   tasks:
     - name: configure CouchDB environment (create user couchdb)
+      become: yes
+      become_method: sudo
       user:
         name: couchdb
         createhome: yes
