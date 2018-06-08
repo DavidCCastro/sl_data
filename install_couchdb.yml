@@ -27,6 +27,8 @@
         - /var/lib/couchdb
 
     - name: download and untar apache-couchdb-1.6.1.tar.gz into /home/
+      become: yes
+      become_method: sudo
       unarchive:
         src: ftp://192.1.1.181/couchdb/apache-couchdb-1.6.1.tar.gz
         dest: /home/
