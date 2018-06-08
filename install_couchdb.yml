@@ -8,6 +8,8 @@
         home: /var/lib/couchdb
 
     - name: configure CouchDB environment (create directories and set permissions)
+      become: yes
+      become_method: sudo
       file:
         path: "{{ item }}"
         owner: couchdb
