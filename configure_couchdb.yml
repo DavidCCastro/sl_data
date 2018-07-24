@@ -7,6 +7,7 @@
       file:
         path: /usr/local/etc/couchdb/local.ini
         owner: couchdb
+        group: couchdb
 
     - name: Create symbolic link 1
       file:
