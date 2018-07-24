@@ -39,6 +39,7 @@
         path: /mnt/data/couchdb
         state: directory
         owner: couchdb
+        group: couchdb
 
     - name: Edit database_dir parameter into /usr/local/etc/couchdb/local.ini file
       become: yes
