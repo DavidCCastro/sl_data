@@ -1,0 +1,14 @@
+- hosts: sldata001
+  user: smartlis
+  become: yes
+  become_method: sudo
+  
+  tasks:
+  - name: Edit /etc/postgresql/9.6/main/postgresql.conf to enable WAL
+      lineinfile:
+        path: /etc/postgresql/9.6/main/postgresql.conf
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: "#wal_level = minimal", line: "wal_level = archive"
+  
