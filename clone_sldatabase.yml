@@ -24,7 +24,7 @@
       networks:
       - name: VM Network
         type: static
-        ip: 192.1.1.230
+        ip: "{{ vm_ip }}"
         netmask: 255.255.255.0
       wait_for_ip_address: yes
       customization:
