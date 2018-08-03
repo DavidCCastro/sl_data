@@ -11,4 +11,8 @@
       line: "{{ item.line }}"
     with_items:
       - { regexp: "#wal_level = minimal", line: "wal_level = archive" }
+      - { regexp: "#archive_mode = off", line: "archive_mode = on" }
+      - { regexp: "#archive_command = ''", line: "archive_command = 'cp %p /mnt/data/postgresql/9.5/main/archive/%f'" }
+      - { regexp: "#max_wal_senders = 0", line: "max_wal_senders = 5" }
+      - { regexp: "#wal_keep_segments = 0", line: "wal_keep_segments = 32" }
   
