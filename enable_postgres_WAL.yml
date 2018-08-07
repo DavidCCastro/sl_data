@@ -45,5 +45,5 @@
     postgresql_user:
       name: replication
       password: "{{ replication_pass }}"
-      role_attr_flags: CREATEDB
+      role_attr_flags: REPLICATION
       expires: infinity
