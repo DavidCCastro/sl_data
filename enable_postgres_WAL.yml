@@ -28,7 +28,7 @@
       mode: 0700
   
   - name: Edit /etc/postgresql/9.6/main/pg_hba.conf to enable replication
-    lineinfile:
+    blockinfile:
       path: /etc/postgresql/9.6/main/pg_hba.conf
       insertafter: '^# Allow replication connections from localhost, by a user with the'
       content: |
