@@ -30,6 +30,20 @@
   - name: Edit /etc/postgresql/9.6/main/pg_hba.conf to enable replication
     lineinfile:
       path: /etc/postgresql/9.6/main/pg_hba.conf
-      regexp: '^# Allow replication connections'
       insertafter: '^# Allow replication connections from localhost, by a user with the'
-      line: 'host     replication     replication     192.1.1.231/24         password'
+      content: |
+        'host     replication     replication     192.1.1.231/24         password'
+      
+  - name: start postgresql service
+    service:
+      name: postgresql
+      state: started
+      
+  - name: Create Replication PostgreSQL user
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        name: replication
+        password: "{{ replication_pass }}"
+        role_attr_flags: CREATEDB
+        expires: infinity
