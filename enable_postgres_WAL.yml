@@ -32,7 +32,7 @@
       path: /etc/postgresql/9.6/main/pg_hba.conf
       regexp: '^# Allow replication connections from localhost, by a user with the'
       insertafter: '^# Allow replication connections from localhost, by a user with the'
-      line: 'host     replication     replication     "{{ ip_replication }}"         password'
+      line: 'host     replication     replication     {{ ip_replication }}         password'
       state: present
       
   - name: start postgresql service
