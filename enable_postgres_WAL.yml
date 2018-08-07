@@ -40,10 +40,10 @@
       state: started
       
   - name: Create Replication PostgreSQL user
-      become: yes
-      become_user: postgres
-      postgresql_user:
-        name: replication
-        password: "{{ replication_pass }}"
-        role_attr_flags: CREATEDB
-        expires: infinity
+    become: yes
+    become_user: postgres
+    postgresql_user:
+      name: replication
+      password: "{{ replication_pass }}"
+      role_attr_flags: CREATEDB
+      expires: infinity
