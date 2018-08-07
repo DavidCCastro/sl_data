@@ -1,4 +1,4 @@
-- hosts: sldata001
+- hosts: "{{ sldatahost }}"
   user: smartlis
   become: yes
   become_method: sudo
