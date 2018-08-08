@@ -38,7 +38,7 @@
   - name: start postgresql service
     service:
       name: postgresql
-      state: started
+      state: restarted
       
   - name: Create Replication PostgreSQL user
     become: yes
