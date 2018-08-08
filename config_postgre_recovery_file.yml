@@ -1,4 +1,4 @@
-- hosts: {{ sldata_slave }}
+- hosts: "{{ sldata_slave }}"
   user: smartlis
   become: yes
   become_method: sudo
@@ -19,7 +19,7 @@
       path: /mnt/data/postgresql/9.6/main/recovery.conf
       content: |
         standby_mode = 'on'
-        primary_conninfo = 'host="{{ sldata_master }}" port=5432 user=replication password="{{ replication_pass }}"'
+        primary_conninfo = 'host={{ sldata_master }} port=5432 user=replication password={{ replication_pass }}'
         restore_command = 'cp /mnt/data/postgresql/9.6/main/archive/%f %p'
         archive_cleanup_command = 'pg_archivecleanup /mnt/data/postgresql/9.6/main/archive %r'
    
