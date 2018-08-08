@@ -5,8 +5,7 @@
   
   tasks:
   - name: Create recovery.conf file
-    user: postgres
-    become: yes
+    become_user: postgres
     become_method: sudo
     file:
       path: /mnt/data/postgresql/9.6/main/recovery.conf
