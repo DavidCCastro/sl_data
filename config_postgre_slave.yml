@@ -34,7 +34,9 @@
     shell: mv /mnt/data/postgresql/9.6/main /mnt/data/postgresql/9.6/mainbackup
   
   - name: Syncronize data from master to slave
-    shell: pg_basebackup -h "{{ sldata_master }}" -D /mnt/data/postgresql/9.6/main -U replication -v -P "{{ replication_pass }}"
+    become: yes
+    become_user: postgres
+    shell: pg_basebackup -h "{{ sldata_master }}" -D /mnt/data/postgresql/9.6/main -U replication -v -P -w
       
   - name: Create Replication PostgreSQL user
     become: yes
