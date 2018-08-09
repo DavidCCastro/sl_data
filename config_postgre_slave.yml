@@ -36,7 +36,7 @@
   - name: Syncronize data from master to slave
     become: yes
     become_user: postgres
-    shell: pg_basebackup -h "{{ sldata_master }}" -D /mnt/data/postgresql/9.6/main -U replication -v -P -w
+    shell: pg_basebackup -h 192.1.1.230 -D /mnt/data/postgresql/9.6/main -U replication -v -P -w
       
   - name: Create Replication PostgreSQL user
     become: yes
