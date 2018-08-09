@@ -4,6 +4,15 @@
   become_method: sudo
   
   tasks:
+  - name: Create Replication PostgreSQL user
+    become: yes
+    become_user: postgres
+    postgresql_user:
+      name: replication
+      password: "{{ replication_pass }}"
+      role_attr_flags: REPLICATION
+      expires: infinity
+  
   - name: stop postgresql service
     service:
       name: postgresql
@@ -37,16 +46,7 @@
     become: yes
     become_user: postgres
     shell: pg_basebackup -h 192.1.1.230 -D /mnt/data/postgresql/9.6/main -U replication -v -P -w
-      
-  - name: Create Replication PostgreSQL user
-    become: yes
-    become_user: postgres
-    postgresql_user:
-      name: replication
-      password: "{{ replication_pass }}"
-      role_attr_flags: REPLICATION
-      expires: infinity
-      
+           
   - name: Create recovery.conf file
     become_user: postgres
     become_method: sudo
