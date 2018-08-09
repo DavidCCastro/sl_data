@@ -36,7 +36,7 @@
       path: /etc/postgresql/9.6/main/pg_hba.conf
       regexp: '^# Allow replication connections from localhost, by a user with the'
       insertafter: '^# Allow replication connections from localhost, by a user with the'
-      line: 'host     replication     replication     {{ sldata_master }}         password'
+      line: 'host     replication     replication     {{ sldata_master }}         trust'
       state: present
   
   - name: Rename main data directory
@@ -45,7 +45,7 @@
   - name: Syncronize data from master to slave
     become: yes
     become_user: postgres
-    shell: pg_basebackup -h 192.1.1.230 -D /mnt/data/postgresql/9.6/main -U replication -v -P -w
+    shell: pg_basebackup -h 192.1.1.230 -D /mnt/data/postgresql/9.6/main -U replication -v -P
            
   - name: Create recovery.conf file
     become_user: postgres
