@@ -9,8 +9,8 @@
     with_items:
       - couchdb
       - postgresql
-     register: result
+    register: result
    
-   - name: debug outuput to find "inactive" status
-     debug: 
-     var: result
+  - name: debug outuput to find "inactive" status
+    debug: 
+    var: result
