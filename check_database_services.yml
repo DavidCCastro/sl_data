@@ -10,5 +10,5 @@
    
   - name: debug outuput to find "active" status
     debug:
-      msg: couchdb_status.stdout
+      msg: PRUEBA
     
