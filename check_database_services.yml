@@ -5,10 +5,10 @@
    
   tasks:
   - name: Checking couchdb service is up
-    shell: ps -ef | grep couchdb | wc -l
+    shell: service couchdb status
     register: couchdb_status
    
   - name: debug outuput to find "active" status
     debug:
-      msg: couchdb_status.stdout
-    when: couchdb_status.stdout.find("2") == -1
+      msg: couchdb_status
+    when: couchdb_status.stdout.find("active") != -1
