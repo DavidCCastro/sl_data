@@ -8,7 +8,7 @@
     command: service couchdb status
     register: couchdb_status
    
-   - name: debug outuput to find "active" status
+  - name: debug outuput to find "active" status
     debug:
       msg: "couchdb is running"
     when: couchdb_status.stdout.find("active") != -1
