@@ -12,3 +12,9 @@
     debug:
       msg: "couchdb is running"
     when: couchdb_status.stdout.find("active") != -1
+
+  - name: notificación slack
+    delegate_to: localhost
+    slack:
+      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
+      msg: chuta
