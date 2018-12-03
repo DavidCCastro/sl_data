@@ -1,0 +1,11 @@
+- hosts: "{{ servers }}"
+  user: smartlis
+  become: yes
+  become_method: sudo
+  
+  tasks:
+  - name: Checking postgresql service is up
+    command: service "{{ item }}" status
+    with_items:
+      - couchdb
+      - postgresql
