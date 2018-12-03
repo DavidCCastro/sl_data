@@ -4,10 +4,11 @@
   become_method: sudo
   
   tasks:
-  - name: Checking postgresql and couchdb services are up
+  - name: Checking couchdb service is up
     command: service couchdb status
-    register: result
+    register: couchdb_status
    
   - name: debug outuput to find "inactive" status
     debug:
-      var: result.stdout_lines
+      msg: "couchdb is running"
+      when: couchdb_status.stdout_lines.find("active") != -1
