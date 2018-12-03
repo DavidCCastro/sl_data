@@ -12,3 +12,6 @@
     debug:
       msg: "couchdb is running"
     when: couchdb_status.stdout.find("(exited)") != -1
+    debug:
+      msg: "couchdb is not running"
+    when: couchdb_status.stdout.find("(exited)") == -1
