@@ -11,5 +11,5 @@
   - name: debug outuput to find "active" status
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: couchdb is not working
+      msg: couchdb is working
     when: couchdb_status.stdout.find("active") != 1
