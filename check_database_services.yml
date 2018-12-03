@@ -13,4 +13,4 @@
    
   - name: debug outuput to find "inactive" status
     debug:
-      msg: "{{ result.stdout }}"
+      var: result.stdout_lines
