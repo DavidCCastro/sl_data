@@ -12,4 +12,4 @@
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
       msg: couchdb service is not working
-    when: couchdb_status.stdout.find("inactive") != -1
+    when: couchdb_status.stdout.find("(dead)") > 0
