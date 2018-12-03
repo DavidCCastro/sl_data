@@ -6,10 +6,10 @@
   
   tasks:
   - name: Checking couchdb service is up
-    command: service couchdb status
+    command: ps -ef | grep couchdb | wc -l
     register: couchdb_status
    
   - name: debug outuput to find "active" status
     debug:
       msg: "couchdb is NOT running"
-    when: couchdb_status | join('') | search("inactive (dead)")
+    when: couchdb_status = 1
