@@ -9,6 +9,7 @@
     register: couchdb_status
    
   - name: debug outuput to find "active" status
-    debug:
+    slack:
+      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
       msg: couchdb is not working
-    when: couchdb_status.stdout.find("active") == 1
+    when: couchdb_status.stdout.find("active") != 1
