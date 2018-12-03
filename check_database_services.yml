@@ -10,5 +10,5 @@
    
   - name: debug outuput to find "active" status
     debug:
-      msg: couchdb service is not working
-    when: couchdb_status.stdout.find("(dead)") > 0
+      msg: couchdb_status.stdout
+    
