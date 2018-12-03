@@ -11,4 +11,4 @@
   - name: debug outuput to find "inactive" status
     debug:
       msg: "couchdb is not running"
-    when: couchdb_status.stdout.find("active") == -1
+    when: couchdb_status.stdout.find("inactive") != -1
