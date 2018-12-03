@@ -4,8 +4,13 @@
   become_method: sudo
   
   tasks:
-  - name: Checking postgresql service is up
+  - name: Checking postgresql and couchdb services are up
     command: service "{{ item }}" status
     with_items:
       - couchdb
       - postgresql
+     register: result
+   
+   - name: debug outuput to find "inactive" status
+     debug: 
+     var: result
