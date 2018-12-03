@@ -5,10 +5,7 @@
   
   tasks:
   - name: Checking postgresql and couchdb services are up
-    command: service "{{ item }}" status
-    with_items:
-      - couchdb
-      - postgresql
+    command: service couchdb status
     register: result
    
   - name: debug outuput to find "inactive" status
