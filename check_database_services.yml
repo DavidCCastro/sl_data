@@ -11,4 +11,4 @@
   - name: debug outuput to find "active" status
     debug:
       msg: couchdb_status.stdout
-    when: couchdb_status.stdout != 1
+    when: couchdb_status.stdout.find("2") == -1
