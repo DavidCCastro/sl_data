@@ -5,7 +5,7 @@
    
   tasks:
   - name: Checking couchdb service is up
-    command: ps -ef | grep couchdb | wc -l
+    shell: ps -ef | grep couchdb | wc -l
     register: couchdb_status
    
   - name: debug outuput to find "active" status
