@@ -2,8 +2,7 @@
   user: smartlis
   become: yes
   become_method: sudo
-  command_warnings: False
-  
+   
   tasks:
   - name: Checking couchdb service is up
     command: ps -ef | grep couchdb | wc -l
