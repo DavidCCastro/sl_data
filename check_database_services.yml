@@ -12,5 +12,5 @@
     register: result
    
   - name: debug outuput to find "inactive" status
-    debug: 
-    var: result
+    debug:
+      msg: "{{ result.stdout }}"
