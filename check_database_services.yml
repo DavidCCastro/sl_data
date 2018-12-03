@@ -9,7 +9,6 @@
     register: couchdb_status
    
   - name: debug outuput to find "active" status
-    slack:
-      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
+    debug:
       msg: couchdb service is not working
     when: couchdb_status.stdout.find("(dead)") > 0
