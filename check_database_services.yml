@@ -9,9 +9,9 @@
     ignore_errors: yes
     register: postgresql_status
    
-  - name: debug outuput to find "active" status
+  - name: debug outuput to find "inactive" status on stdout
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: postgresql status is not working
+      msg: postgresql service is not working
     when: postgresql_status.stdout.find("inactive") != -1
