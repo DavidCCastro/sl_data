@@ -1,15 +1,14 @@
 - hosts: "{{ servers }}"
   user: smartlis
+    
+  tasks:
   become: yes
   become_method: sudo
-   
-  tasks:
   - name: Checking couchdb service is up
     shell: service couchdb status
     register: couchdb_status
    
   - name: debug outuput to find "active" status
-    become: yes
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
