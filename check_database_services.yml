@@ -7,3 +7,11 @@
     become_method: sudo
     command: service postgresql status
     ignore_errors: yes
+    register: postgresql_status
+   
+  - name: debug outuput to find "active" status
+    delegate_to: localhost
+    slack:
+      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
+      msg: postgresql status is not working
+    when: postgresql_status.stdout.find("inactive") != -1
