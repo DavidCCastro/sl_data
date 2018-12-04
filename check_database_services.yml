@@ -12,4 +12,4 @@
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: couchdb status is {{ cocuhdb_status.stdout_lines }}
+      msg: couchdb status is {{ couchdb_status.stdout_lines }}
