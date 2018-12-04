@@ -2,9 +2,9 @@
   user: smartlis
     
   tasks:
-  become: yes
-  become_method: sudo
   - name: Checking couchdb service is up
+    become: yes
+    become_method: sudo
     shell: service couchdb status
     register: couchdb_status
    
