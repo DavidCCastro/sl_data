@@ -6,3 +6,4 @@
     become: yes
     become_method: sudo
     shell: service postgresql status
+    ignore_errors: yes
