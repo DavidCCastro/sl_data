@@ -13,7 +13,7 @@
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
       msg: "{{ response_time }}"
-    when: response_time.find("{{ item }}")
+    when: response_time.find("{{ item }}") != -1
     with_items:
       - "OK"
       - "Warning"
