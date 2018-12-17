@@ -11,4 +11,4 @@
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: "{{ response_time.stdout_lines }}"
+      msg: "{{ response_time.stdout_lines | list }}"
