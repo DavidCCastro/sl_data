@@ -14,5 +14,5 @@
       msg: "{{ response_time.stdout }}"
     when: response_time.stdout.find("{{ item }}") != -1
     with_items:
-      - "Warnig"
+      - "Warning"
       - "Danger"
