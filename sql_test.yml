@@ -1,0 +1,15 @@
+- hosts: sldatabase
+  user: smartlis
+    
+  tasks:
+  - name: Check response time
+    command: psql -d sl_log -c "select date_part('day', dtcrea)d, date_part('hour', dtcrea) h, count(*) n, avg(ms) ms from sys_call_log where ms > 100 group by 1, 2 order by 1, 2"
+    ignore_errors: yes
+    register: response_time
+  
+  - name: debug output to find response time >100ms
+    delegate_to: localhost
+    slack:
+      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
+      msg: alerta rendimiento
+    when: response_time.stdout.find("ms") >= 100
