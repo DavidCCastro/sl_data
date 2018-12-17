@@ -4,7 +4,6 @@
   tasks:
   - name: Check response time
     uri: http://192.1.1.220/exec/monitor_syscalllog_Ansible
-    ignore_errors: yes
     register: response_time
   
   - name: debug output to find response time >100ms
