@@ -13,4 +13,7 @@
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
       msg: "{{ response_time }}"
-    when: "'Warning' in response_time.content"
+    when: "'{{ item }}' in response_time.content"
+    with_items:
+      - Warning
+      - Danger
