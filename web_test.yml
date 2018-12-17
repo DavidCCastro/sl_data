@@ -12,4 +12,9 @@
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: "{{ response_time.stdout }}"
+      msg: "{{ response_time }}"
+    when: response_time.find("{{ item }}")
+    with_items:
+      - "OK"
+      - "Warning"
+      - "Danger"
