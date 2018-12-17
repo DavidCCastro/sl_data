@@ -3,7 +3,7 @@
     
   tasks:
   - name: Check response time
-    command: psql -d sl_log -c "select date_part('day', dtcrea)d, date_part('hour', dtcrea) h, count(*) n, avg(ms) ms from sys_call_log where ms > 100 and dtcrea >= NOW() - '1 day'::INTERVAL group by 1, 2 order by 1, 2 asc"
+    command: psql -d sl_log -c "select case when cantidad<1 then 'OK' when cantidad<250 then 'Warning' else 'Danger' end AS Resultado from ( select count(*) Cantidad from public.sys_call_log where ms > 100 and date_part('day',dtcrea)=date_part('day',CURRENT_TIMESTAMP) and date_part('hour', dtcrea)=date_part('hour', CURRENT_TIMESTAMP)-1 	) AS Call_Log"
     ignore_errors: yes
     register: response_time
   
@@ -11,4 +11,5 @@
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: "{{ response_time.stdout_lines | grep 'ms' }}"
+      msg: "{{ response_time.stdout_lines }}"
+    
