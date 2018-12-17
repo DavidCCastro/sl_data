@@ -12,7 +12,7 @@
     delegate_to: localhost
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
-      msg: "{{ item }}" - Número llamadas sistema superior a 30 segundos
+      msg: "{{ item }} Número llamadas sistema superior a 30 segundos"
     when: "'{{ item }}' in response_time.content"
     with_items:
       - Warning
