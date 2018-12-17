@@ -1,0 +1,19 @@
+- hosts: sldatabase
+  user: smartlis
+    
+  tasks:
+  - name: Check response time
+    uri: http://192.1.1.220/exec/monitor_syscalllog_Ansible
+    ignore_errors: yes
+    register: response_time
+  
+  - name: debug output to find response time >100ms
+    delegate_to: localhost
+    slack:
+      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
+      msg: "{{ response_time.stdout }}"
+    when: response_time.stdout.find("{{ item }}") != -1
+    with_items:
+      - "Warning"
+      - "Danger"
+      - "OK"
