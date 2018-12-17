@@ -12,4 +12,4 @@
     slack:
       token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
       msg: alerta rendimiento
-    when: response_time.stdout_lines.find("ms") >= 100
+    when: response_time.stdout_lines.find("100") >= 1
