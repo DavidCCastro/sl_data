@@ -3,7 +3,7 @@
     
   tasks:
   - name: Check sys calls count
-    command: psql -d sl_log -c "select case when cantidad<1 then 'OK' when cantidad<250 then 'Warning' else 'Danger' end AS Resultado from ( select count(*) Cantidad from public.sys_call_log where ms > 30000 and date_part('day',dtcrea)=date_part('day',CURRENT_TIMESTAMP) and date_part('hour', dtcrea)=date_part('hour', CURRENT_TIMESTAMP)-1 	) AS Call_Log"
+    command: psql -d sl_log -c "select case when cantidad<1 then 'OK' when cantidad<2 then 'Warning' else 'Danger' end AS Resultado from ( select count(*) Cantidad from public.sys_call_log where ms > 30000 and date_part('day',dtcrea)=date_part('day',CURRENT_TIMESTAMP) and date_part('hour', dtcrea)=date_part('hour', CURRENT_TIMESTAMP)-1 	) AS Call_Log"
     ignore_errors: yes
     register: response_time
   
