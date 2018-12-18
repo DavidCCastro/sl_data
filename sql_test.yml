@@ -1,4 +1,4 @@
-- hosts: sldatabase
+- hosts: "{{ servers }}"
   user: smartlis
     
   tasks:
