@@ -10,7 +10,7 @@
   - name: Send message when sys calls count is greater than 250 in the last hour
     delegate_to: localhost
     slack:
-      token: T9N25BYMC/BAX8DKSA3/Z8MVCo8SjbZnAMZJiPxKy4H5
+      token: T9N25BYMC/BEJ5TU0MP/UkjPmJsB7d1D0BAA2Belyjxf
       msg: "{{ item }} Número llamadas sistema superior a 30 segundos"
     when: response_time.stdout.find("{{ item }}") != -1
     with_items:
